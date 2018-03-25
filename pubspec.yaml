@@ -1,0 +1,14 @@
+name: flor
+description: colors pickers and utils
+version: 0.0.1
+author: Erick Ghaumez <erick@rxla.bz>
+homepage:
+
+dependencies:
+  flutter:
+    sdk: flutter
+  color: "^2.0.2"
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

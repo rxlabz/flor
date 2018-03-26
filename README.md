@@ -1,6 +1,6 @@
 # flor
 
-colors pickers and utils
+FLutter colorpickers and color utils
 
 - colorPickerDialog
 

@@ -112,7 +112,7 @@ class RoundColorSliderThumbShape extends GradientSliderComponentShape {
         thumbCenter,
         radiusTween.evaluate(enableAnimation),
         new Paint()
-          ..color = Colors.white
+          ..color = getContrastColor(colorValue, limit: 650)
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2.0);
   }
@@ -430,7 +430,6 @@ class GradientSlider extends StatefulWidget {
   final Color thumbColor;
   final List<Color> colors;
 
-
   @override
   _ColorGradientSliderState createState() => new _ColorGradientSliderState();
 
@@ -540,7 +539,7 @@ class _ColorGradientSliderState extends State<GradientSlider>
     return new _GradientSliderRenderObjectWidget(
       value: _unlerp(widget.value),
       thumbColor: widget.thumbColor,
-      colors:widget.colors,
+      colors: widget.colors,
       label: widget.label,
       sliderTheme: sliderTheme,
       mediaQueryData: MediaQuery.of(context),
@@ -721,6 +720,7 @@ class _RenderSlider extends RenderBox {
     _thumbColor = value;
     markNeedsPaint();
   }
+
   List<Color> get colors => _colors;
   List<Color> _colors;
   set colors(List<Color> value) {
@@ -929,7 +929,7 @@ class _RenderSlider extends RenderBox {
           _currentDragValue += valueDelta;
           break;
       }
-      onChanged( min(max(0.0, _currentDragValue), 1.0));
+      onChanged(min(max(0.0, _currentDragValue), 1.0));
     }
   }
 
@@ -956,7 +956,9 @@ class _RenderSlider extends RenderBox {
   double computeMinIntrinsicWidth(double height) {
     return math.max(
       _overlayDiameter,
-      _gradientSliderTheme.thumbShape.getPreferredSize(isInteractive, isDiscrete).width,
+      _gradientSliderTheme.thumbShape
+          .getPreferredSize(isInteractive, isDiscrete)
+          .width,
     );
   }
 
@@ -984,7 +986,8 @@ class _RenderSlider extends RenderBox {
 
   void _paintOverlay(Canvas canvas, Offset center) {
     if (!_overlayAnimation.isDismissed) {
-      final Paint overlayPaint = new Paint()..color = _gradientSliderTheme.overlayColor;
+      final Paint overlayPaint = new Paint()
+        ..color = _gradientSliderTheme.overlayColor;
       final double radius = _overlayRadiusTween.evaluate(_overlayAnimation);
       canvas.drawCircle(center, radius, overlayPaint);
     }
@@ -1019,7 +1022,11 @@ class _RenderSlider extends RenderBox {
     final Offset thumbCenter = new Offset(railActive, railVerticalCenter);
 
     final Gradient gradient = new LinearGradient(
-      colors: colors ?? [_gradientSliderTheme.startRailColor, _gradientSliderTheme.endRailColor],
+      colors: colors ??
+          [
+            _gradientSliderTheme.startRailColor,
+            _gradientSliderTheme.endRailColor
+          ],
     );
     Rect gradientRect = Rect.fromPoints(
         Offset(railLeft, railTop), Offset(railRight, railBottom));
@@ -1046,7 +1053,7 @@ class _RenderSlider extends RenderBox {
             _gradientSliderTheme,
             _textDirection,
             value,
-          _thumbColor);
+            _thumbColor);
       }
     }
 
@@ -1061,7 +1068,7 @@ class _RenderSlider extends RenderBox {
         _gradientSliderTheme,
         _textDirection,
         value,
-      _thumbColor);
+        _thumbColor);
   }
 
   @override

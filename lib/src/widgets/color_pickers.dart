@@ -255,11 +255,9 @@ class HSLPickerState extends State<HSLPicker> {
             sliderKey: Key('sldL'),
             sliderBuilder: buildSlider,
             value: _l,
-            label: 'Light',
+            label: 'Lightness',
             maxValue: 100.0,
             onChange: (value) => setState(() => l = value),
-            /*endColor: Colors.black,
-            startColor: hslToColor(_color),*/
             colors: [Colors.black, hslToColor(_color), Colors.white],
             thumbColor: hslToColor(_color),
           ),
